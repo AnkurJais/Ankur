@@ -1,0 +1,25 @@
+<br>
+<p>
+  <b>Question ID:</b>
+  <%= @question.id %>
+
+</p>
+<p>
+  <b>Question:</b>
+  <%= @question.question %>
+
+</p>
+
+<% if current_user && current_user.id %>
+<%= form_for :answer do |f| %>
+<div class="field">
+    <%= f.label :'Your Answer' %><br />
+    <%= f.text_area :answer %>
+  </div>
+  <%= f.hidden_field 'answered_by', :value => current_user.name %>
+
+   <div class="actions">
+    <%= f.submit 'Post Answer'%>
+  </div>
+  <% end %>
+  <% end %>

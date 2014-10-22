@@ -1,0 +1,18 @@
+<% if current_user && current_user.id %>
+<%= form_for :question do |f| %>
+<%= current_user.id %>
+  <div class="field">
+    <%= f.label :Question %><br />
+    <%= f.text_area :question %>
+  </div>
+  <%= person =current_user.name %>
+ <%= f.hidden_field 'askedby', :value => current_user.name %>
+   <div class="actions">
+    <%= f.submit 'Post Question'%>
+  </div>
+    <% end %>
+  <% else %>
+<script type="text/javascript">
+    window.location.href='../login'  // put your correct path in a string here
+  </script>
+  <% end %>

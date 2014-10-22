@@ -1,0 +1,23 @@
+<h1>Users Information</h1>
+
+<table>
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @documents.each do |user| %>
+  <tr>	
+    <td><%= document.fname %></td>
+    <td><%= document.lname %></td>
+    <td><%= link_to 'Show', documents %></td>
+    <td><%= link_to 'Edit', edit_document_path(document) %></td>
+    <td><%= link_to 'Destroy', documents, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'New Person',new_document_path %>
+<br />
