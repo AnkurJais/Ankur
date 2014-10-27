@@ -19,9 +19,8 @@ get 'users/:id/vote_me' => 'users#vote_me' , :as => 'users_vote_me'
 
 
 
+post 'users/show_question' => 'users#post_answer'
 
-
-post 'users/show_question' => 'users#savequestion'
 #match 'users#give_answer',  :to => 'users/:id/give_answer'
 #get "document/index"
 #get "document/edit"

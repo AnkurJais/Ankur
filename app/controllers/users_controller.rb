@@ -72,6 +72,7 @@ def index
 
 def show_question
   @questions = Question.all
+  @answers = Answer.all
 end
 
  def ask
@@ -80,7 +81,6 @@ end
 
 def give_answer
   @question= Question.find(params[:id])
-
 
 end
 
@@ -97,13 +97,19 @@ end
 end
 
 def post_answer
- p  params
-# @question = Question.find(params[:id])
+ p  params[:answer]
+   @questions = Question.all
+     @answers = Answer.all
 @answer =Answer.new(params[:answer])
-@answer.question_id = params[:id]
+#@answer.question_id = params[:id]
 respond_to do |format|
 if @answer.save
- format.html { redirect_to (:back), notice: 'Answer was successfully posted.'}
+ format.html { render :action => 'show_question', notice: 'Answer was successfully posted.'}
+  
+ #format.html { redirect_to (:back), notice: 'Answer was successfully posted.'}
+  
+
+
   #  if @answer.set_attributes(:answer,"params[:answer]")
    #     format.html { redirect_to (:back), notice: 'Answer was successfully posted.' }
     #    p @answer.answer
@@ -113,6 +119,7 @@ end
 end
 
 def show_answer
+ 
   p params[:id]
 @answers = Answer.find_all_by_question_id(params[:id])
   # @answers = Answer.where(question_id: params[:id])

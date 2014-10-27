@@ -5,6 +5,7 @@
 <th>Question ID</th>
 <th>Answer</th>
 <th>Answered By</th>
+<th>Score</th>
 <% if @answers %>
   <% @answers.each do |answer|%>
  <tr>
@@ -12,7 +13,9 @@
     <td><%= answer.question_id %></td>
     <td><%= answer.answer %></td>
     <td><%= answer.answered_by %></td>
+<td><%= link_to "Like" %> </td>
 </tr>
+
 <% end %>
 <% else %>
  No Data
