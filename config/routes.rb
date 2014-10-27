@@ -16,6 +16,11 @@ get 'users/:id/give_answer' => 'users#give_answer' , :as => 'users_give_answer'
 get 'users/:id/show_answer' => 'users#show_answer' , :as => 'users_show_answer'
 post 'users/:id/give_answer' => 'users#post_answer'
 get 'users/:id/vote_me' => 'users#vote_me' , :as => 'users_vote_me'
+
+
+
+
+
 post 'users/show_question' => 'users#savequestion'
 #match 'users#give_answer',  :to => 'users/:id/give_answer'
 #get "document/index"
