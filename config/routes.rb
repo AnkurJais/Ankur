@@ -1,11 +1,12 @@
 Ankur::Application.routes.draw do
+root :to => 'sessions#new' 
 get    'signup'  => 'users#new'
 get    'login'   => 'sessions#new'
 post   'login'   => 'sessions#create'
 delete 'logout'  => 'sessions#destroy'
 get 'logout'  => 'sessions#destroy'
 #resources :sessions
-root :to => "users#index"
+
   #get "documents/index"
 resources :documents
 get 'users/ask'

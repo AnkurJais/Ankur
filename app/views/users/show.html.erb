@@ -1,19 +1,24 @@
-<p id="notice"><%= notice %></p>
-<%= gravatar_for @user %>
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+<% if current_user && current_user.id %>
+  <p id="notice"><%= notice %></p>
+  <%= gravatar_for @user %>
+  <p>
+    <b>Name:</b>
+    <%= @user.name %>
+  </p>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-<p><%= current_user.id%></p>
-
-<%= link_to 'Ask Question',  users_ask_path if current_user.id? %>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
-<br>
-<br>
-<%= link_to 'All Questions',users_show_question_path  %>
+  <p>
+    <b>Email:</b>
+    <%= @user.email %>
+  </p>
+  <p><%= current_user.id%></p>
+  <%= link_to 'Ask Question',  users_ask_path if current_user.id? %>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Back', users_path %>
+  <br>
+  <br>
+  <%= link_to 'All Questions',users_show_question_path  %>
+<% else %>
+  <script type="text/javascript">
+    window.location.href='../login'  // put your correct path in a string here
+  </script>
+<% end %>

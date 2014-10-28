@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-def index
+  def index
     @users = User.all
     respond_to do |format|
       format.html # index.html.erb
@@ -10,7 +10,6 @@ def index
 
   def show
     @user = User.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -26,12 +25,12 @@ def index
     end
   end
 
-   def edit
+  def edit
     @user = User.find(params[:id])
   end
 
 
- def create
+  def create
     @user = User.new(params[:user])
 
     respond_to do |format|
@@ -63,86 +62,72 @@ def index
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :ok }
     end
   end
 
-def show_question
-  @questions = Question.all
-  @answers = Answer.all
-end
+  def show_question
+    @questions = Question.all
+    @answers = Answer.all
+  end
 
- def ask
- @question = Question.new
- end
+  def ask
+    @question = Question.new
+  end
 
-def give_answer
-  @question= Question.find(params[:id])
+  def give_answer
+    @question= Question.find(params[:id])
+  end
 
-end
+  def savequestion
+    @question = Question.new(params[:question])
+    respond_to do |format|
+      if @question.save
+        flash[:notice] = 'Question was successfully asked.'
+        format.html { redirect_to (:back), notice: 'Question was successfully asked.'}
+      end
+    end
+  end
 
-def savequestion
+  def post_answer
+    p  params[:answer]
+    @questions = Question.all
+    @answers = Answer.all
+    @answer =Answer.new(params[:answer])
+    #@answer.question_id = params[:id]
+    respond_to do |format|
+      if @answer.save
+        format.html { render :action => 'show_question', notice: 'Answer was successfully posted.'}
+        #format.html { redirect_to (:back), notice: 'Answer was successfully posted.'}
+      end 
+    end
+  end
 
- @question = Question.new(params[:question])
-respond_to do |format|
- if @question.save
-   flash[:notice] = 'Question was successfully asked.'
- format.html { redirect_to (:back), notice: 'Question was successfully asked.'}
- 
- end
-end
-end
-
-def post_answer
- p  params[:answer]
-   @questions = Question.all
-     @answers = Answer.all
-@answer =Answer.new(params[:answer])
-#@answer.question_id = params[:id]
-respond_to do |format|
-if @answer.save
- format.html { render :action => 'show_question', notice: 'Answer was successfully posted.'}
-  
- #format.html { redirect_to (:back), notice: 'Answer was successfully posted.'}
-  
-
-
-  #  if @answer.set_attributes(:answer,"params[:answer]")
-   #     format.html { redirect_to (:back), notice: 'Answer was successfully posted.' }
-    #    p @answer.answer
-    #  else 
-end 
-end
-end
-
-def show_answer
- 
-  p params[:id]
-@answers = Answer.find_all_by_question_id(params[:id])
-  # @answers = Answer.where(question_id: params[:id])
-
-end
+  def show_answer
+    p params[:id]
+    @answers = Answer.find_all_by_question_id(params[:id])
+    # @answers = Answer.where(question_id: params[:id])
+  end
 
 
-def vote_me
-  respond_to do |format|
-if !$like 
-$like=0
-end
-if($like==0)
-  $like=1
-  p $like
-  format.html { redirect_to :back,notice: 'successfully liked.' }
-else
-  $like=0
-  p $like
-  format.html {redirect_to :back , notice: 'successfully Unliked.' }
-end
-end
-end
+  def vote_me
+    respond_to do |format|
+      if !$like 
+        $like=0
+      end
+      if($like==0)
+        $like=1
+        p $like
+        format.html { redirect_to :back,notice: 'successfully liked.' }
+      else
+        $like=0
+        p $like
+        format.html {redirect_to :back , notice: 'successfully Unliked.' }
+      end
+    end
+  end
 end
 
 
