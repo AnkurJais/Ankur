@@ -12,6 +12,25 @@
         $( "#accordion1" ).accordion();
       });
     </script>
+    <script>
+    $(document).ready(function(){
+      $('#postquestion').submit(function() {  
+        var valuesToSubmit = $(this).serialize();
+        $.ajax({
+          type: "POST"
+          url: $(this).attr('savequestion'), //sumbits it to the given url of the form
+          data: valuesToSubmit,
+          dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
+        }).success(function(json){
+        //act on result.
+        });
+        return false; // prevents normal behaviour
+      });
+      $('#something').click(function() {
+        window.location.href='http://google.com';
+      });
+    });  
+    </script>
     <style >
       div.overflow
       {
@@ -20,7 +39,13 @@
     </style>
   </head>
 
+  <% content_for :title do %>
+    Show Question
+  <% end %>
   <body>
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
     <h2>Question List</h2>
     <h4>Question ID  Question  AskedBy </h4>
     <div id="accordion" >
@@ -60,7 +85,7 @@
           </p>
 
           <% if current_user && current_user.id %>
-            <%= form_for :answer do |f| %>
+            <%= form_for :answer, :url => "show_question" do |f| %>
               <%= f.hidden_field 'question_id', :value => question.id %>
               <div class="field">
                 <%= f.label :'Your Answer' %><br />
@@ -82,7 +107,7 @@
       <h3>Ask Question</h3>
     <div>
     <% if current_user && current_user.id %>
-      <%= form_for :question, :remote => true do |f| %>
+      <%= form_for :question,:html => {:id =>'postquestion'}, format: :json ,:remote => true  do |f| %>
         <%= current_user.id %>
         <div class="field">
           <%= f.label :Question %><br />
@@ -99,11 +124,8 @@
         window.location.href='../login'  // put your correct path in a string here
       </script>
     <% end %>
+    <div class="container">
+      <button id="something">Refresh</button>
+    </div>
   </body>
 </html>
-
-
-
-
-
-

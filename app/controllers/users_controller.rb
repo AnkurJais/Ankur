@@ -86,7 +86,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @question.save
         flash[:notice] = 'Question was successfully asked.'
-        format.html { redirect_to (:back), notice: 'Question was successfully asked.'}
+        format.html { redirect_to 'show_question', notice: 'Question was successfully asked.'}
+        format.json { head :ok }
       end
     end
   end
@@ -99,7 +100,7 @@ class UsersController < ApplicationController
     #@answer.question_id = params[:id]
     respond_to do |format|
       if @answer.save
-        format.html { render :action => 'show_question', notice: 'Answer was successfully posted.'}
+        format.html { redirect_to (:back), notice: 'Answer was successfully posted.'}
         #format.html { redirect_to (:back), notice: 'Answer was successfully posted.'}
       end 
     end
@@ -111,6 +112,13 @@ class UsersController < ApplicationController
     # @answers = Answer.where(question_id: params[:id])
   end
 
+  def save_answer
+    p params[:answer][:question_id]
+    p params[:answer][:answer]
+    @question=Question.find(params[:answer][:question_id]) 
+    @answer = @question.answers.create(answer: params[:answer][:answer],answered_by: params[:answer][:answered_by])
+    redirect_to (:back)
+  end
 
   def vote_me
     respond_to do |format|
