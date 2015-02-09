@@ -8,7 +8,6 @@ get 'logout'  => 'sessions#destroy'
 #resources :sessions
 
   #get "documents/index"
-resources :documents
 get 'users/ask'
 post 'users/ask' => 'users#savequestion'
 get 'users/show_question'
@@ -29,7 +28,9 @@ post 'users/show_question' => 'users#savequestion'
 #get "document/show"
 #post "document/create"
   resources :users
-
+  resources :documents
+# get 'documents/new' => 'documents#new'
+# post 'documents/new' => 'documents#create'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

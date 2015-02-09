@@ -5,7 +5,9 @@ class DocumentsController < ApplicationController
   end
 
   def new
-    @documents = Document.new
+    @document = Document.new
+
+    2.times{@document.addresses.build}
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @document }
@@ -13,11 +15,12 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document= Document.new(params[:document])
+    @document = Document.new(params[:document])
+    @document.save
     # @user = Name.new(name_params)
     respond_to do |format|
       if @document.save
-        format.html { redirect_to @document, notice: 'User was successfully created.' }
+        format.html { redirect_to :back, notice: 'User was successfully created.' }
         format.json { render json: @document, status: :created, location: @user }
       else
         format.html { render action: "new"}

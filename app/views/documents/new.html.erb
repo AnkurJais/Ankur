@@ -1,8 +1,8 @@
 <h2> Enter Name</h2>
 
-<%= form_for :@document do |f| %>
+<%= form_for @document do |f| %>
 
-<div class="field">
+  <div class="field">
     <%= f.label :First_Name %><br />
     <%= f.text_field :fname %>
   </div>
@@ -10,8 +10,24 @@
     <%= f.label :Last_Name %><br />
     <%= f.text_field :lname %>
   </div>
+  <% i=0 %>  
+  <%= f.fields_for :addresses do |ff| %>
+    <%= "Address"+"#{i+=1}"  %>
+    <div class="field">
+      <%= f.label :City %><br />    
+      <%= ff.text_field :city %><br>
+    </div>
+    <div class="field">  
+      <%= f.label :State %><br />    
+      <%= ff.text_field :state %><br>
+    </div>  
+    <div class="field">
+      <%= f.label :Country %><br />
+      <%= ff.text_field :country %><br>
+    </div>
+  <% end %>
     <div class="actions">
-    <%= f.submit "save me"%>
-  </div>
+      <%= f.submit "save me"%>
+    </div>
 
 <% end %>
